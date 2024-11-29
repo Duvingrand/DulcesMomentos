@@ -1,9 +1,5 @@
 # <p align="center">🎂 **Dulces Momentos** 🎂</p>
 
-<p align="center">
-  <img src="https://via.placeholder.com/800x200.png?text=Dulces+Momentos" alt="Logo Dulces Momentos">
-</p>
-
 **Dulces Momentos** es una aplicación web diseñada con **Laravel** para la gestión eficiente de una panadería, pastelería y postrería. Esta plataforma permite gestionar productos, pedidos, inventarios y clientes de manera sencilla, mejorando la administración del negocio y optimizando la experiencia del cliente.
 
 ---
@@ -11,7 +7,6 @@
 ## 🌟 Características
 
 - **Gestión de Productos**: Agregar, editar y eliminar productos (panes, pasteles, galletas, etc.).
-- **Gestión de Inventarios**: Control total sobre los ingredientes y materiales.
 - **Gestión de Pedidos**: Registro y seguimiento de pedidos de clientes.
 - **Gestión de Clientes**: Administrar información de los clientes, incluyendo preferencias y datos de contacto.
 - **Informes de Ventas**: Generación de reportes detallados para analizar el rendimiento.
