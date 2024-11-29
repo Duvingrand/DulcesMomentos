@@ -21,4 +21,8 @@ class Product extends Model
     {
         return $this->belongsTo(Category::class);  // Relación inversa (pertenece a Category)
     }
+    public function requests()
+    {
+        return $this->hasMany(ProductInRequest::class);  // Relación con ProductInRequest (pertenece a ProductInRequest)
+    }
 }

@@ -14,4 +14,13 @@ class ProductInRequest extends Model
         'rekest_id',
         "personalization"
     ];
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
+    public function rekest()
+    {
+        return $this->belongsTo(Rekest::class);
+    }
 }

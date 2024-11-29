@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreRekestRequest;
 use App\Http\Requests\UpdateRekestRequest;
+use App\Models\Client;
+use App\Models\Product;
 use App\Models\Rekest;
 
 class RekestController extends Controller
@@ -28,22 +30,32 @@ class RekestController extends Controller
      */
     public function create()
     {
-        //
+        $clients= Client::all();
+        return view('rekests.create', compact('clients'));
     }
+    
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(StoreRekestRequest $request)
     {
-        //
+        Rekest::create([
+            'delivery_day' => $request->delivery_day,
+            'client_id' => $request->client_id,
+            'status' => 'Pendiente'
+        ]);
+        return redirect()->route('dashboard')->with('success', 'Pedido creado exitosamente');
+       
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Rekest $rekest)
+    public function show($rekestId)
     {
+        // Obtener el Rekest con sus productos asociados
+        $rekest = Rekest::with('products.product')->findOrFail($rekestId);  // Cargamos los productos con la relación intermedia 'ProductInRequest'
         return view('rekests.show', compact('rekest'));
     }
 
@@ -52,7 +64,8 @@ class RekestController extends Controller
      */
     public function edit(Rekest $rekest)
     {
-        //
+        $clients= Client::all();
+        return view('rekests.create', compact('clients'));
     }
 
     /**
@@ -60,7 +73,12 @@ class RekestController extends Controller
      */
     public function update(UpdateRekestRequest $request, Rekest $rekest)
     {
-        //
+        $rekest->update([
+            'delivery_day' => $request->delivery_day,
+            'client_id' => $request->client_id,
+            'status' => $request->status,
+        ]);
+        return redirect()->route('dashboard')->with('success', 'Pedido actualizado exitosamente');
     }
 
     /**
@@ -68,6 +86,7 @@ class RekestController extends Controller
      */
     public function destroy(Rekest $rekest)
     {
-        //
+        $rekest->delete();
+        return redirect()->route('dashboard')->with('success', 'Pedido eliminado exitosamente');
     }
 }

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('product_id');
             $table->unsignedBigInteger('rekest_id');
-            $table->string("personalization");
+            $table->string("personalization")->nullable();
             $table->timestamps();
 
             //foreign keys

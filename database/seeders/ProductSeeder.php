@@ -16,75 +16,75 @@ class ProductSeeder extends Seeder
         $productos = [
             [
                 'name' => 'Pastel de chocolate con ganache',
-                'description' => 'Delicioso pastel de chocolate esponjoso cubierto con una rica ganache de chocolate amargo.',
+                'description' => 'Ingredientes: chocolate, harina, huevos, crema, azúcar.',
                 'price' => 50000,
                 'size' => 'mediano',
-                'category_id' => 1
+                'category_id' => 4 // Categoría: Pasteles
             ],
             [
                 'name' => 'Cupcakes de vainilla con frosting de mantequilla',
-                'description' => 'Mini pasteles individuales de vainilla suave cubiertos con un cremoso frosting de mantequilla.',
+                'description' => 'Ingredientes: harina, azúcar, vainilla, mantequilla, huevos.',
                 'price' => 7000,
                 'size' => 'pequeño',
-                'category_id' => 2
+                'category_id' => 1 // Categoría: Cupcakes
             ],
             [
                 'name' => 'Tarta de manzana con canela',
-                'description' => 'Deliciosa tarta con una capa de manzana caramelizada y un toque de canela.',
+                'description' => 'Ingredientes: manzanas, canela, azúcar, harina, mantequilla.',
                 'price' => 35000,
                 'size' => 'mediana',
-                'category_id' => 1
+                'category_id' => 4 // Categoría: Pasteles
             ],
             [
                 'name' => 'Brownie de chocolate con nueces',
-                'description' => 'Brownie denso y húmedo, con trozos de nuez y un toque de chocolate amargo.',
+                'description' => 'Ingredientes: chocolate, nueces, azúcar, harina, huevos.',
                 'price' => 12000,
                 'size' => 'pequeño',
-                'category_id' => 2
+                'category_id' => 3 // Categoría: Brownies
             ],
             [
                 'name' => 'Cheesecake de frutos rojos',
-                'description' => 'Suave cheesecake con base de galleta, cubierto con una mezcla de frutos rojos frescos.',
+                'description' => 'Ingredientes: queso crema, galletas, frutos rojos, azúcar, mantequilla.',
                 'price' => 45000,
                 'size' => 'grande',
-                'category_id' => 3
+                'category_id' => 5 // Categoría: Postres fríos
             ],
             [
                 'name' => 'Galletas de avena con pasas',
-                'description' => 'Galletas crujientes de avena con un toque dulce de pasas.',
+                'description' => 'Ingredientes: avena, pasas, azúcar, mantequilla, harina.',
                 'price' => 5000,
                 'size' => 'pequeño',
-                'category_id' => 2
+                'category_id' => 2 // Categoría: Galletas
             ],
             [
                 'name' => 'Tiramisu clásico',
-                'description' => 'Postre italiano a base de café, queso mascarpone y cacao en polvo.',
+                'description' => 'Ingredientes: café, queso mascarpone, cacao, bizcochos, azúcar.',
                 'price' => 38000,
                 'size' => 'mediano',
-                'category_id' => 3
+                'category_id' => 5 // Categoría: Postres fríos
             ],
             [
                 'name' => 'Macarons de frambuesa',
-                'description' => 'Delicados macarons con un relleno suave de frambuesa.',
+                'description' => 'Ingredientes: almendras, azúcar, frambuesa, claras de huevo.',
                 'price' => 9000,
                 'size' => 'pequeño',
-                'category_id' => 2
+                'category_id' => 7 // Categoría: Otros
             ],
             [
                 'name' => 'Pastel Red Velvet',
-                'description' => 'Pastel de terciopelo rojo con crema de queso en capas y decoración minimalista.',
+                'description' => 'Ingredientes: harina, cacao, buttermilk, crema de queso, azúcar.',
                 'price' => 55000,
                 'size' => 'grande',
-                'category_id' => 1
+                'category_id' => 4 // Categoría: Pasteles
             ],
             [
                 'name' => 'Churros con chocolate',
-                'description' => 'Churros recién hechos, crujientes por fuera y suaves por dentro, acompañados de un delicioso dip de chocolate.',
+                'description' => 'Ingredientes: harina, azúcar, canela, chocolate, agua.',
                 'price' => 15000,
                 'size' => 'mediano',
-                'category_id' => 2
+                'category_id' => 7 // Categoría: Otros
             ]
-        ];
+        ];        
         
         DB::table('products')->insert($productos);
     }

@@ -18,4 +18,8 @@ class Rekest extends Model
     {
         return $this->belongsTo(Client::class);
     }
+    public function products()
+    {
+        return $this->hasMany(ProductInRequest::class);
+    }
 }
