@@ -33,7 +33,7 @@ class RekestController extends Controller
         $clients= Client::all();
         return view('rekests.create', compact('clients'));
     }
-    
+
 
     /**
      * Store a newly created resource in storage.
@@ -43,10 +43,11 @@ class RekestController extends Controller
         Rekest::create([
             'delivery_day' => $request->delivery_day,
             'client_id' => $request->client_id,
-            'status' => 'Pendiente'
+            'status' => 'Pendiente',
+
         ]);
         return redirect()->route('dashboard')->with('success', 'Pedido creado exitosamente');
-       
+
     }
 
     /**
@@ -79,6 +80,14 @@ class RekestController extends Controller
             'status' => $request->status,
         ]);
         return redirect()->route('dashboard')->with('success', 'Pedido actualizado exitosamente');
+    }
+
+    public function changeStatus(Rekest $rekest){
+        $rekest->update([
+            "status"=>"Completado"
+        ]);
+         // Redirige al dashboard
+    return redirect()->route('dashboard')->with('success', 'Estado cambiado a Completo.');
     }
 
     /**

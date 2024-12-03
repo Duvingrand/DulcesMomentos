@@ -10,12 +10,9 @@
             <div class="bg-pink-50 overflow-hidden shadow-sm sm:rounded-lg">
                 <div
                     class="p-6 text-pink-800 flex flex-col sm:flex-row sm:justify-center sm:space-x-4 space-y-4 sm:space-y-0">
-                    <button class="bg-pink-200 px-4 py-2 rounded hover:bg-pink-100 transition duration-200 ease-in-out">
-                        Crear un nuevo pedido
-                    </button>
 
                     <button class="bg-pink-200 px-4 py-2 rounded hover:bg-pink-100 transition duration-200 ease-in-out">
-                        Ver historial de pedidos
+                        Ver pedidos activos
                     </button>
 
                     <button class="bg-pink-200 px-4 py-2 rounded hover:bg-pink-100 transition duration-200 ease-in-out">
@@ -48,7 +45,7 @@
                                 @php
                                 // Parseamos la fecha de entrega
                                 $deliveryDate = \Carbon\Carbon::parse($rekest->delivery_day);
-                            
+
                                 // Verificamos si la fecha de entrega es hoy
                                 if ($deliveryDate->isToday()) {
                                     $daysLeft = 'Hoy';
@@ -80,11 +77,11 @@
                                     <a href="{{ route('rekests.show', $rekest->id) }}" class="text-pink-500 hover:text-pink-700">
                                         Completar
                                     </a>
-                                    <a href="{{ route('rekests.destroy', $rekest->id) }}" class="text-red-500 hover:text-red-700 ml-2" 
+                                    <a href="{{ route('rekests.destroy', $rekest->id) }}" class="text-red-500 hover:text-red-700 ml-2"
                                         onclick="event.preventDefault(); if(confirm('¿Estás seguro de eliminar este pedido?')) { document.getElementById('delete-form-{{ $rekest->id }}').submit(); }">
                                         Eliminar
                                     </a>
-            
+
                                     <!-- Formulario de eliminación de pedido -->
                                     <form id="delete-form-{{ $rekest->id }}" action="{{ route('rekests.destroy', $rekest->id) }}" method="POST" style="display: none;">
                                         @csrf
@@ -96,7 +93,7 @@
                     </tbody>
                 </table>
             </div>
-            
+
         </div>
     </div>
 </x-app-layout>

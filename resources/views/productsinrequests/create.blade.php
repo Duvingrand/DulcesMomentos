@@ -22,21 +22,37 @@
             <!-- Selección de Producto -->
             <div class="mb-4">
                 <label for="product_id" class="block text-pink-600 font-semibold mb-2">Seleccionar Producto</label>
-                <label for="product_id" class="block text-pink-600 font-semibold mb-2">{{ $rekest->id }}</label>
                 <select name="product_id" id="product_id"
                     class="w-full px-4 py-2 border border-pink-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400"
                     required>
-                    <option value="">Seleccione un producto</option>
+                    <option value="" data-description="">Seleccione un producto</option>
                     @foreach ($products as $product)
-                        <option value="{{ $product->id }}" {{ old('product_id') == $product->id ? 'selected' : '' }}>
+                        <option value="{{ $product->id }}" data-description="{{ $product->description }}"
+                            {{ old('product_id') == $product->id ? 'selected' : '' }}>
                             {{ $product->name }}
                         </option>
                     @endforeach
                 </select>
+                <div id="product-description" class="mt-2 text-gray-600"></div>
                 @error('product_id')
                     <div class="invalid-feedback text-red-600 mt-2">{{ $message }}</div>
                 @enderror
             </div>
+            <script>
+                document.getElementById('product_id').addEventListener('change', function () {
+                    const selectedOption = this.options[this.selectedIndex];
+                    const description = selectedOption.getAttribute('data-description');
+                    document.getElementById('product-description').innerText = description || 'No hay descripción disponible.';
+                });
+
+                // Mostrar descripción preseleccionada al cargar la página
+                window.addEventListener('DOMContentLoaded', () => {
+                    const select = document.getElementById('product_id');
+                    const selectedOption = select.options[select.selectedIndex];
+                    const description = selectedOption.getAttribute('data-description');
+                    document.getElementById('product-description').innerText = description || 'No hay descripción disponible.';
+                });
+            </script>
 
             <!-- Campo de Personalización -->
             <div class="mb-4">

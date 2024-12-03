@@ -8,7 +8,7 @@
             <li>{{ $product->name }} - {{ $product->description }}</li>
         @endforeach
     </ul>
-    
+
     @if(session('success'))
         <div class="alert alert-success">
             {{ session('success') }}

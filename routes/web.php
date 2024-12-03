@@ -22,7 +22,7 @@ Route::get('/dashboard', [RekestController::class, 'index'])
 Route::get('/historial', [RekestController::class, 'Historial'])->name('rekests.historial');
 
 Route::resource('rekests', RekestController::class);
-Route::get('rekests/{rekestId}/products', [ProductInRequestController::class, 'index'])->name('productsinrequests.index');
+Route::patch('rekests/{rekest}/change-status', [RekestController::class, 'changeStatus'])->name('rekests.changeStatus');
 Route::get('rekests/{rekestId}/add-product', [ProductInRequestController::class, "create"])->name('productsinrequests.create');
 Route::post('rekests/{rekestId}/add-product', [ProductInRequestController::class, 'store'])->name('productsinrequests.store');
 // Ruta para la lista de productos (si es necesario)

@@ -48,7 +48,6 @@
                             <th class="px-4 py-2 text-left">Días faltantes</th>
                             <th class="px-4 py-2 text-left">Estado</th>
                             <th class="px-4 py-2 text-left">Cliente</th>
-                            <th class="px-4 py-2 text-left">Total</th>
                             <th class="px-4 py-2 text-left">Acción</th>
                         </tr>
                     </thead>
@@ -85,21 +84,34 @@
                                 <td class="px-4 py-2 {{ $statusClass }}">{{ $text }}</td>
                                 <td class="px-4 py-2">{{ $rekest->status }}</td>
                                 <td class="px-4 py-2">{{ $rekest->client->name }}</td>
-                                <td class="px-4 py-2">${{ $rekest->total ?? 'N/A' }}</td>
-                                <td class="px-4 py-2 space-x-4">
+                                <td class="flex flex-col">
+                                    <a href="{{ route('productsinrequests.create', ['rekestId' => $rekest->id]) }}"
+                                       class="text-pink-500 hover:text-pink-700  transition duration-300">
+                                        Agregar productos
+                                    </a>
                                     <a href="{{ route('rekests.show', $rekest->id) }}"
-                                        class="text-pink-500 hover:text-pink-700">
+                                       class="text-pink-500 hover:text-pink-700  transition duration-300">
                                         Ver detalles
                                     </a>
-                                    <a a href="{{ route('productsinrequests.create', ['rekestId' => $rekest->id]) }}"
-                                        class="text-pink-500 hover:text-pink-700">
-                                        Completar
-                                    </a>
-                                    <a href="{{ route('rekests.destroy', $rekest->id) }}"
-                                        class="text-red-500 hover:text-red-700 ml-2"
-                                        onclick="event.preventDefault(); if(confirm('¿Estás seguro de eliminar este pedido?')) { document.getElementById('delete-form-{{ $rekest->id }}').submit(); }">
-                                        Eliminar
-                                    </a>
+                                    <form action="{{ route('rekests.destroy', $rekest->id) }}" method="POST" class="inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="text-red-500 hover:text-red-700 transition duration-300"
+                                            onclick="event.preventDefault(); if(confirm('¿Estás seguro de eliminar este pedido?')) { this.closest('form').submit(); }">
+                                            Eliminar
+                                        </button>
+                                    </form>
+                                    <form action="{{ route('rekests.changeStatus', $rekest->id) }}" method="POST" class="inline">
+                                        @csrf
+                                        @method('PATCH')
+                                        <button type="submit" class="text-pink-500 hover:text-pink-700 transition duration-300">
+                                            Cambiar a Completo
+                                        </button>
+                                    </form>
+                                </td>
+
+
+
 
                                     <!-- Formulario de eliminación de pedido -->
                                     <form id="delete-form-{{ $rekest->id }}"
