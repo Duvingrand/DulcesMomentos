@@ -29,10 +29,10 @@
                             Ver historial de pedidos
                         </button>
                     </a>
-                    <a href="{{ route('rekests.historial') }}">
+                    <a href="{{ route('clients.create') }}">
                         <button
                             class="bg-pink-200 px-4 py-2 rounded hover:bg-pink-100 transition duration-200 ease-in-out">
-                            filtrar
+                            Pedido para cliente no registrado
                         </button>
                     </a>
                 </div>
@@ -67,7 +67,7 @@
                                     if ($deliveryDate->isToday()) {
                                         // Si es hoy, asignamos 0 como número de días restantes
                                         $daysLeft = 0;
-                                        $statusClass = 'bg-red-200 font-bold px-4 py-2';
+                                        $statusClass = 'bg-yellow-200 font-bold px-4 py-2';
                                         $text = 'Hoy';
                                     } elseif ($daysLeft > 0) {
                                         // Si la fecha está en el futuro
@@ -75,7 +75,7 @@
                                         $text = $daysLeft . ' días';
                                     } else {
                                         // Si la fecha está en el pasado (usamos abs() para convertir el valor a positivo)
-                                        $statusClass = 'bg-yellow-200 font-bold px-4 py-2';
+                                        $statusClass = 'bg-red-200 font-bold px-4 py-2';
                                         $text = abs($daysLeft) . ' días atrasado'; // Convertimos el valor negativo a positivo
                                     }
                                 @endphp
@@ -96,7 +96,7 @@
                                     <form action="{{ route('rekests.destroy', $rekest->id) }}" method="POST" class="inline">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="text-pink-500 hover:text-red-700 transition duration-300"
+                                        <button type="submit" class="text-pink-500 hover:text-red-500 transition duration-300"
                                             onclick="event.preventDefault(); if(confirm('¿Estás seguro de eliminar este pedido?')) { this.closest('form').submit(); }">
                                             Eliminar
                                         </button>

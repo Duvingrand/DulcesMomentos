@@ -11,9 +11,11 @@
                 <div
                     class="p-6 text-pink-800 flex flex-col sm:flex-row sm:justify-center sm:space-x-4 space-y-4 sm:space-y-0">
 
+                    <a href="{{ route('dashboard') }}">
                     <button class="bg-pink-200 px-4 py-2 rounded hover:bg-pink-100 transition duration-200 ease-in-out">
                         Ver pedidos activos
                     </button>
+                    </a>
 
                     <button class="bg-pink-200 px-4 py-2 rounded hover:bg-pink-100 transition duration-200 ease-in-out">
                         filtrar

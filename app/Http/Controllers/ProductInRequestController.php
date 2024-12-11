@@ -50,7 +50,8 @@ class ProductInRequestController extends Controller
         ProductInRequest::create([
             'rekest_id' => $rekestId,
             'product_id' => $request->product_id,
-            "personalization" => $request->personalization
+            "personalization" => $request->personalization,
+            "quantity"=>$request->quantity
         ]);
 
         // Redireccionar al dashboard
@@ -86,6 +87,10 @@ class ProductInRequestController extends Controller
      */
     public function destroy(ProductInRequest $productInRequest)
     {
-        //
+
+        $productInRequest->delete(); // Elimina el producto del pedido
+
+        return redirect()->route('rekests.show', ['rekest' => $productInRequest->rekest_id])
+            ->with('success', 'Producto eliminado del pedido.');
     }
 }

@@ -30,6 +30,7 @@
                         <option value="{{ $product->id }}" data-description="{{ $product->description }}"
                             {{ old('product_id') == $product->id ? 'selected' : '' }}>
                             {{ $product->name }}
+                            ({{ $product->size }})
                         </option>
                     @endforeach
                 </select>
@@ -63,6 +64,14 @@
                 @error('personalization')
                     <div class="invalid-feedback text-red-600 mt-2">{{ $message }}</div>
                 @enderror
+            </div>
+            <div class="mb-4">
+                <label for="quantity" class="block text-pink-600 font-semibold mb-2">Cantidad</label>
+                <input type="number" name="quantity" id="quantity" value="{{old("quantity")}}"
+                class="w-1/3 px-4 py-2 border border-pink-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400">
+                @error('quantity')
+                <div class="invalid-feedback text-red-600 mt-2">{{ $message }}</div>
+            @enderror
             </div>
 
             <!-- Botones de acción -->

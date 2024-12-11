@@ -20,6 +20,8 @@ Route::get('/dashboard', [RekestController::class, 'index'])
 
 // Ruta para el historial de pedidos (cancelado o completo)
 Route::get('/historial', [RekestController::class, 'Historial'])->name('rekests.historial');
+Route::delete('/productsInRequest/{productInRequest}', [ProductInRequestController::class, 'destroy'])
+    ->name('productInRequest.destroy');
 
 Route::resource('rekests', RekestController::class);
 Route::patch('rekests/{rekest}/change-status', [RekestController::class, 'changeStatus'])->name('rekests.changeStatus');

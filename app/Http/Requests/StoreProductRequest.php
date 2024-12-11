@@ -15,10 +15,12 @@ class StoreProductRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'description' => '',
-            'price' => 'required|numeric|min:0',
-            'size' => 'required|in:pequeño,mediano,grande',  // Asegúrate de validar que solo se acepte uno de estos tres valores
+            'description' => 'nullable|string',
             'category_id' => 'required|exists:categories,id',
+            'sizes' => 'required|array', // Lista de tamaños seleccionados
+            'price_pequeño' => 'nullable|numeric|min:0',
+            'price_mediano' => 'nullable|numeric|min:0',
+            'price_grande' => 'nullable|numeric|min:0',
         ];
     }
 }

@@ -23,7 +23,8 @@ class StoreProductInRequestRequest extends FormRequest
     {
         return [
             'product_id' => 'required|exists:products,id',
-            'personalization' => 'nullable|string|max:255'
+            'personalization' => 'nullable|string|max:255',
+            "quantity" => "numeric|min:1"
         ];
     }
 }
