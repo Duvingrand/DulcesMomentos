@@ -40,13 +40,14 @@ class RekestController extends Controller
      */
     public function store(StoreRekestRequest $request)
     {
-        Rekest::create([
+        $rekest = Rekest::create([
             'delivery_day' => $request->delivery_day,
             'client_id' => $request->client_id,
             'status' => 'Pendiente',
 
         ]);
-        return redirect()->route('dashboard')->with('success', 'Pedido creado exitosamente');
+        return redirect()->route('rekests.show', $rekest->id)
+        ->with('success', 'Pedido creado exitosamente');
 
     }
 
@@ -74,12 +75,21 @@ class RekestController extends Controller
      */
     public function update(UpdateRekestRequest $request, Rekest $rekest)
     {
-        $rekest->update([
-            'delivery_day' => $request->delivery_day,
-            'client_id' => $request->client_id,
-            'status' => $request->status,
-        ]);
-        return redirect()->route('dashboard')->with('success', 'Pedido actualizado exitosamente');
+         // Verificar si el estado del pedido es "Pendiente"
+    if ($rekest->status !== 'Pendiente') {
+        // Si no es "Pendiente", redirigir con un mensaje de error
+        return redirect()->route('dashboard')->with('error', 'No se puede actualizar un pedido que no está en estado Pendiente');
+    }
+
+    // Si el estado es "Pendiente", proceder con la actualización
+    $rekest->update([
+        'delivery_day' => $request->delivery_day,
+        'client_id' => $request->client_id,
+        'status' => $request->status,
+    ]);
+
+    // Redirigir con un mensaje de éxito
+    return redirect()->route('dashboard')->with('success', 'Pedido actualizado exitosamente');
     }
 
     public function changeStatus(Rekest $rekest){

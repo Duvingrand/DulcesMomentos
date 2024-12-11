@@ -40,14 +40,14 @@
             </div>
 
             <div class="overflow-x-auto bg-white shadow-md rounded-lg">
-                <table class="min-w-full table-auto">
+                <table class="min-w-full table-auto ">
                     <thead class="bg-pink-50 text-pink-700">
                         <tr>
                             <th class="px-4 py-2 text-left">ID</th>
                             <th class="px-4 py-2 text-left">Fecha de entrega</th>
                             <th class="px-4 py-2 text-left">Días faltantes</th>
-                            <th class="px-4 py-2 text-left">Estado</th>
                             <th class="px-4 py-2 text-left">Cliente</th>
+                            <th class="px-4 py-2 text-left"># Productos</th>
                             <th class="px-4 py-2 text-left">Acción</th>
                         </tr>
                     </thead>
@@ -82,21 +82,21 @@
 
 
                                 <td class="px-4 py-2 {{ $statusClass }}">{{ $text }}</td>
-                                <td class="px-4 py-2">{{ $rekest->status }}</td>
                                 <td class="px-4 py-2">{{ $rekest->client->name }}</td>
-                                <td class="flex flex-col">
-                                    <a href="{{ route('productsinrequests.create', ['rekestId' => $rekest->id]) }}"
+                                <td class="px-4 py-2 ">{{ $rekest->products->count() }}</td>
+                                <td class="flex flex-col ">
+                                    {{-- <a href="{{ route('productsinrequests.create', ['rekestId' => $rekest->id]) }}"
                                        class="text-pink-500 hover:text-pink-700  transition duration-300">
                                         Agregar productos
-                                    </a>
+                                    </a> --}}
                                     <a href="{{ route('rekests.show', $rekest->id) }}"
-                                       class="text-pink-500 hover:text-pink-700  transition duration-300">
+                                       class="text-pink-500 hover:text-blue-700  transition duration-300">
                                         Ver detalles
                                     </a>
                                     <form action="{{ route('rekests.destroy', $rekest->id) }}" method="POST" class="inline">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="text-red-500 hover:text-red-700 transition duration-300"
+                                        <button type="submit" class="text-pink-500 hover:text-red-700 transition duration-300"
                                             onclick="event.preventDefault(); if(confirm('¿Estás seguro de eliminar este pedido?')) { this.closest('form').submit(); }">
                                             Eliminar
                                         </button>
@@ -104,8 +104,15 @@
                                     <form action="{{ route('rekests.changeStatus', $rekest->id) }}" method="POST" class="inline">
                                         @csrf
                                         @method('PATCH')
-                                        <button type="submit" class="text-pink-500 hover:text-pink-700 transition duration-300">
-                                            Cambiar a Completo
+                                        <button type="submit" class="text-pink-500 hover:text-green-700 transition duration-300">
+                                            Completar
+                                        </button>
+                                    </form>
+                                    <form action="{{ route('rekests.changeStatus', $rekest->id) }}" method="POST" class="inline">
+                                        @csrf
+                                        @method('PATCH')
+                                        <button type="submit" class="text-pink-500 hover:text-purple-700 transition duration-300">
+                                            Rechazar
                                         </button>
                                     </form>
                                 </td>

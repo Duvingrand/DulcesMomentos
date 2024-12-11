@@ -12,7 +12,9 @@ class ProductInRequest extends Model
     protected $fillable = [
         'product_id',
         'rekest_id',
-        "personalization"
+        "personalization",
+        "quantity",
+        "updated_price"
     ];
 
     public function product()

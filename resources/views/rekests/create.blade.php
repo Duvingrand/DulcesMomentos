@@ -13,6 +13,13 @@
             </div>
         @endif
 
+            <!-- Mensaje de éxito -->
+    @if (session('success'))
+    <div class="mb-4 p-4 bg-green-100 text-green-700 rounded-lg shadow-md">
+        {{ session('success') }}
+    </div>
+@endif
+
 
         <!-- Formulario para crear un nuevo Rekest -->
         <form action="{{ route('rekests.store') }}" method="POST" class="bg-white p-6 rounded-lg shadow-md">

@@ -1,32 +1,6 @@
 <x-app-layout>
     <div class="container mx-auto p-6">
         <h1 class="text-3xl font-semibold mb-6 text-pink-600">Detalles de la Solicitud</h1>
-
-        <!-- Información del Rekest -->
-        <div class="mb-6 p-6 bg-white rounded-lg shadow-md">
-            <h2 class="text-2xl font-semibold text-pink-600 mb-4">Información del Pedido</h2>
-
-            <div class="mb-4">
-                <strong class="text-pink-600">Cliente:</strong>
-                <p>{{ $rekest->client->name }}</p>
-            </div>
-
-            <div class="mb-4">
-                <strong class="text-pink-600">Día de Entrega:</strong>
-                <p>{{ $rekest->delivery_day }}</p>
-            </div>
-
-            <div class="mb-4">
-                <strong class="text-pink-600">Estado:</strong>
-                <p>{{ $rekest->status }}</p>
-            </div>
-
-            <a href="{{ route('rekests.edit', $rekest->id) }}"
-                class="text-pink-500 hover:text-pink-700 mt-4 inline-block">
-                Editar Pedido
-            </a>
-        </div>
-
         <!-- Lista de productos asociados a la solicitud -->
         <div class="mb-6 p-6 bg-white rounded-lg shadow-md">
             <h2 class="text-2xl font-semibold text-pink-600 mb-4">Productos en el Pedido</h2>
@@ -47,12 +21,18 @@
                         @foreach ($rekest->products as $productInRequest)
                             <tr>
                                 <td class="py-2 px-4 border-b">{{ $productInRequest->product->name }}</td>
-                                <td class="py-2 px-4 border-b">{{ $productInRequest->personalization ?? 'N/A' }}</td>
+                                <td class="py-2 px-4 border-b">
+                                    {{ $productInRequest->personalization ?? 'Sin personalización' }}</td>
                                 <td class="py-2 px-4 border-b">
                                     {{ '$' . number_format($productInRequest->product->price) }}
                                 </td>
                                 <td class="py-2 px-4 border-b">
-                                    <a href="#" class="text-pink-500 hover:text-pink-700">Eliminar</a>
+                                    <!-- Solo mostramos el enlace de eliminar si el estado es "pendiente" -->
+                                    @if ($rekest->status == 'Pendiente')
+                                        <a href="#" class="text-pink-500 hover:text-pink-700">Eliminar</a>
+                                    @else
+                                        <span class="text-gray-500">Eliminar (No disponible)</span>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach
@@ -67,15 +47,52 @@
                     </tfoot>
                 </table>
             @endif
-        </div>
-
-
-        <!-- Enlace para agregar un producto -->
+                    <!-- Enlace para agregar un producto, solo si el estado es "pendiente" -->
+        @if ($rekest->status == 'Pendiente')
         <div class="mt-4">
             <a href="{{ route('productsinrequests.create', $rekest->id) }}"
                 class="bg-pink-500 text-white py-2 px-6 rounded-lg hover:bg-pink-600">
                 Agregar Producto
             </a>
         </div>
+    @else
+        <div class="mt-4">
+            <span class="text-gray-500">Agregar Producto (No disponible)</span>
+        </div>
+    @endif
+        </div>
+
+
+        <!-- Información del Rekest -->
+        <div class="my-6 p-6 bg-white rounded-lg shadow-md">
+            <h2 class="text-2xl font-semibold text-pink-600 mb-4">Información del Pedido</h2>
+
+            <div class="mb-4">
+                <strong class="text-pink-600">Cliente:</strong>
+                <p>{{ $rekest->client->name }}</p>
+            </div>
+
+            <div class="mb-4">
+                <strong class="text-pink-600">Día de Entrega:</strong>
+                <p>{{ $rekest->delivery_day }}</p>
+            </div>
+
+            <div class="mb-4">
+                <strong class="text-pink-600">Estado:</strong>
+                <p>{{ $rekest->status }}</p>
+            </div>
+
+            <!-- Verificamos si el estado no es "pendiente" para ocultar el botón de editar -->
+            @if ($rekest->status == 'Pendiente')
+                <a href="{{ route('rekests.edit', $rekest->id) }}"
+                    class="text-pink-500 hover:text-pink-700 mt-4 inline-block">
+                    Editar Pedido
+                </a>
+            @else
+                <span class="text-gray-500 mt-4 inline-block">Editar Pedido (No disponible)</span>
+            @endif
+        </div>
+
     </div>
+
 </x-app-layout>
