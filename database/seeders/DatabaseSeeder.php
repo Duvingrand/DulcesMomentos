@@ -24,6 +24,6 @@ class DatabaseSeeder extends Seeder
         $this->call([CategorySeeder::class]);
         $this->call([ProductSeeder::class]);
         $this->call([ClientSeeder::class]);
-        Rekest::factory()->count(5)->create();
+        Rekest::factory()->count(1)->create();
     }
 }

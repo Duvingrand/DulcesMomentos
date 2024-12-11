@@ -11,7 +11,7 @@ class UpdateRekestRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,9 @@ class UpdateRekestRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'delivery_day' => 'required|date',
+            'client_id' => 'required|exists:clients,id',
+            'status' => 'required|in:Pendiente,Cancelado,Completado',
         ];
     }
 }

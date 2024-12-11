@@ -33,29 +33,32 @@
                 @enderror
             </div>
 
-            <!-- Precio -->
-            <div class="mb-4">
-                <label for="price" class="block text-sm font-medium text-pink-700">Precio</label>
-                <input type="number" id="price" name="price"
-                    value="{{ old('price', $product->price ?? '') }}"
-                    class="mt-2 w-full px-4 py-2 border border-pink-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent"
-                    required>
-                @error('price')
-                    <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
-                @enderror
-            </div>
+            <!-- Tamaños y Precios -->
+            <div class="mb-6">
+                <label class="block text-sm font-medium text-pink-700">Tamaños Disponibles</label>
+                <div class="mt-2">
+                    <label class="inline-flex items-center">
+                        <input type="checkbox" name="sizes[]" value="pequeño" class="size-checkbox">
+                        <span class="ml-2">Pequeño</span>
+                    </label>
+                    <input type="number" name="price_pequeño" placeholder="Precio para pequeño"
+                        class="size-price hidden mt-2 w-full px-4 py-2 border border-pink-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent">
 
-            <!-- Tamaño -->
-            <div class="mb-4">
-                <label for="size" class="block text-sm font-medium text-pink-700">Tamaño</label>
-                <select id="size" name="size"
-                    class="mt-2 w-full px-4 py-2 border border-pink-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent"
-                    required>
-                    <option value="pequeño" {{ old('size', $product->size ?? '') == 'pequeño' ? 'selected' : '' }}>Pequeño</option>
-                    <option value="mediano" {{ old('size', $product->size ?? '') == 'mediano' ? 'selected' : '' }}>Mediano</option>
-                    <option value="grande" {{ old('size', $product->size ?? '') == 'grande' ? 'selected' : '' }}>Grande</option>
-                </select>
-                @error('size')
+                    <label class="inline-flex items-center mt-4">
+                        <input type="checkbox" name="sizes[]" value="mediano" class="size-checkbox">
+                        <span class="ml-2">Mediano</span>
+                    </label>
+                    <input type="number" name="price_mediano" placeholder="Precio para mediano"
+                        class="size-price hidden mt-2 w-full px-4 py-2 border border-pink-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent">
+
+                    <label class="inline-flex items-center mt-4">
+                        <input type="checkbox" name="sizes[]" value="grande" class="size-checkbox">
+                        <span class="ml-2">Grande</span>
+                    </label>
+                    <input type="number" name="price_grande" placeholder="Precio para grande"
+                        class="size-price hidden mt-2 w-full px-4 py-2 border border-pink-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent">
+                </div>
+                @error('sizes')
                     <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
                 @enderror
             </div>
@@ -87,4 +90,21 @@
             </div>
         </form>
     </div>
+
+    <script>
+        // Mostrar u ocultar precios según el tamaño seleccionado
+        document.querySelectorAll('.size-checkbox').forEach(checkbox => {
+            checkbox.addEventListener('change', () => {
+                const priceInput = checkbox.parentElement.nextElementSibling;
+                if (checkbox.checked) {
+                    priceInput.classList.remove('hidden');
+                    priceInput.required = true;
+                } else {
+                    priceInput.classList.add('hidden');
+                    priceInput.required = false;
+                    priceInput.value = ''; // Limpia el valor cuando se deselecciona
+                }
+            });
+        });
+    </script>
 </x-app-layout>

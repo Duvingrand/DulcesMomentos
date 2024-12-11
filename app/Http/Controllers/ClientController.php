@@ -37,7 +37,7 @@ class ClientController extends Controller
         Client::create($validated);
 
         // Redirigir con un mensaje de éxito
-        return redirect()->route("clients.index")->with('success', 'Cliente creado exitosamente.');
+        return redirect()->route("rekests.create")->with('success', 'Cliente creado exitosamente.');
     }
 
     /**

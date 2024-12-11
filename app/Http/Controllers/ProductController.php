@@ -16,7 +16,7 @@ class ProductController extends Controller
     {
         // Obtener todos los productos con la categoría relacionada (paginar 10 productos por página)
         $products = Product::with('category')->paginate(10);
-        
+
         // Retorna la vista con los productos
         return view('products.index', compact('products'));
     }
@@ -28,7 +28,7 @@ class ProductController extends Controller
     {
         // Obtener todas las categorías para el formulario de creación
         $categories = Category::all();
-        
+
         // Retorna la vista de creación con las categorías
         return view('products.create', compact('categories'));
     }
@@ -40,10 +40,17 @@ class ProductController extends Controller
     {
         // Obtener los datos validados desde el StoreProductRequest
         $validated = $request->validated();
-        
-        // Crear el producto con los datos validados
-        Product::create($validated);
-        
+
+        foreach ($validated['sizes'] as $size) {
+            Product::create([
+                'name' => $validated['name'],
+                'description' => $validated['description'],
+                'price' => $validated["price_{$size}"],
+                'size' => $size,
+                'category_id' => $validated['category_id'],
+            ]);
+        }
+
         // Redirigir al listado de productos con mensaje de éxito
         return redirect()->route('products.index')->with('success', 'Producto creado exitosamente.');
     }
@@ -64,7 +71,7 @@ class ProductController extends Controller
     {
         // Obtener todas las categorías para el formulario de edición
         $categories = Category::all();
-        
+
         // Retorna la vista de edición con el producto y las categorías
         return view('products.edit', compact('product', 'categories'));
     }
@@ -76,10 +83,10 @@ class ProductController extends Controller
     {
         // Obtener los datos validados desde el UpdateProductRequest
         $validated = $request->validated();
-        
+
         // Actualizar el producto con los datos validados
         $product->update($validated);
-        
+
         // Redirigir al listado de productos con mensaje de éxito
         return redirect()->route('products.index')->with('success', 'Producto actualizado exitosamente.');
     }
@@ -91,7 +98,7 @@ class ProductController extends Controller
     {
         // Eliminar el producto
         $product->delete();
-        
+
         // Redirigir al listado de productos con mensaje de éxito
         return redirect()->route('products.index')->with('success', 'Producto eliminado exitosamente.');
     }

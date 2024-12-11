@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\ProductInRequestController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RekestController;
+use App\Models\ProductInRequest;
 use Illuminate\Support\Facades\Route;
 
 // Ruta principal de la aplicación
@@ -18,9 +20,13 @@ Route::get('/dashboard', [RekestController::class, 'index'])
 
 // Ruta para el historial de pedidos (cancelado o completo)
 Route::get('/historial', [RekestController::class, 'Historial'])->name('rekests.historial');
+Route::delete('/productsInRequest/{productInRequest}', [ProductInRequestController::class, 'destroy'])
+    ->name('productInRequest.destroy');
 
 Route::resource('rekests', RekestController::class);
-
+Route::patch('rekests/{rekest}/change-status', [RekestController::class, 'changeStatus'])->name('rekests.changeStatus');
+Route::get('rekests/{rekestId}/add-product', [ProductInRequestController::class, "create"])->name('productsinrequests.create');
+Route::post('rekests/{rekestId}/add-product', [ProductInRequestController::class, 'store'])->name('productsinrequests.store');
 // Ruta para la lista de productos (si es necesario)
 Route::resource('products', ProductController::class);
 

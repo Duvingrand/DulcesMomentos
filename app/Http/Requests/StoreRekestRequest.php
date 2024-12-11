@@ -11,7 +11,7 @@ class StoreRekestRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,9 @@ class StoreRekestRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'delivery_day' => 'required|date:after_or_equal:now',
+            'client_id' => 'required|exists:clients,id' // Assuming Client model has an 'id' field
+
         ];
     }
 }
